@@ -1,8 +1,11 @@
 <template>
   <div class="p-6">
-    <h1 class="text-2xl font-bold mb-5 py-5">Dashboard</h1>
-    
-    <!-- Responsive Table Wrapper -->
+    <div class="flex justify-between items-center mb-5">
+      <h1 class="text-2xl font-bold">Dashboard</h1>
+      <button @click="logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white">Logout</button>
+    </div>
+
+    <!-- Table -->
     <div class="w-full">
       <div class="overflow-x-auto lg:overflow-visible">
         <table class="table min-w-full border border-gray-700">
@@ -46,32 +49,12 @@ export default {
         { name: "Mortal Kombat", status: "Offline", image: "/mortalkombat.png", link: "#" },
       ],
     };
-  }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("isAuthenticated");
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
-
-<style scoped>
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.badge-success {
-  background-color: #10b981;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-}
-
-.badge-error {
-  background-color: #ef4444;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-}
-
-/* Ensure text and elements stay centered */
-th, td {
-  text-align: center;
-}
-</style>
