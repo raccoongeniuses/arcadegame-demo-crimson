@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       games: [
-        { name: "Street Fighter", status: "Online", image: "/sf6.png", link: "#" },
+        { name: "Street Fighter", status: "Online", image: "/sf6.png", link: "http://sf.arcadegame-stream.com/?currency=THB&lang=en&params=ZQHxo6Nil4BIJ9UTXArXxOepNjPxBbWo2iscmE5l586ilh4p6CHTAwRj7Ikf%0A6svkV7j16RpTceT%2F%2F4pA6A4dYGK2EAqH2RRpGKZy7wkApxFlGg64mgA7dLLS%0Ay43%2Bbc%2FoUsgC5QlQmtEJr%2BKODQC3Ixt%2FX54wuElFBcDctztqcNvMUxxp9B91%0Ar2oRzbHCr1o4SsjfSghPQBqA6yO90fqjukanFdqplgylp%2Fh6dwbghFrpIxw6%0ASN9cMbM3vcs9Gp9xid6wjyVO3CJmDY1gznZ13MYdqSNhjpXmhFl0%2FkHSMgVx%0A84D%2BF%2FDnUea%2BYqcOWYGhG1dZ9heQ6zs%3D%0A&returnURL=https%3A%2F%2Fm13.ns86.kingdomhall729.com%2Fportal&test=0" },
         { name: "Tekken 8", status: "Offline", image: "/tekken8.png", link: "#" },
         { name: "Mortal Kombat", status: "Offline", image: "/mortalkombat.png", link: "#" },
       ],
