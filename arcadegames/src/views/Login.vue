@@ -1,38 +1,60 @@
 <template>
-  <div class="flex justify-center items-center h-screen bg-gray-900">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
-      <h2 class="text-2xl font-bold text-white mb-4 text-center">Login</h2>
+  <div class="flex justify-center items-center min-h-screen bg-gray-900">
+    <div class="card w-full max-w-md bg-gray-800 shadow-lg rounded-lg p-6">
+      <h1 class="text-3xl font-bold text-center text-white">Welcome back</h1>
+      <p class="text-gray-400 text-center mb-6">Enter your credentials to sign in</p>
+
       <form @submit.prevent="login">
-        <div class="mb-4">
-          <label class="block text-gray-300">Username</label>
-          <input v-model="username" class="w-full p-2 bg-gray-700 text-white rounded" required />
+        <div v-if="error" class="alert alert-error mb-4">
+          <span>{{ error }}</span>
         </div>
-        <div class="mb-4">
-          <label class="block text-gray-300">Password</label>
-          <input type="password" v-model="password" class="w-full p-2 bg-gray-700 text-white rounded" required />
+
+        <div class="form-control mb-6">
+          <label class="label">
+            <span class="label-text text-gray-300">Username</span>
+          </label>
+          <input 
+            v-model="username" 
+            type="username"
+            required 
+            class="input input-bordered w-full bg-gray-700 text-gray-900 rounded-lg h-10 text-lg"
+          />
         </div>
-        <div>
-          <button type="submit" class="w-full p-2 bg-blue-500 hover:bg-blue-600 text-white rounded mt-4" style="margin-top: 10px;">Login</button>
+
+        <div class="form-control mb-6">
+          <label class="label">
+            <span class="label-text text-gray-300">Password</span>
+          </label>
+          <input 
+            v-model="password" 
+            type="password" 
+            required 
+            class="input input-bordered w-full bg-white text-gray-900 rounded-lg h-10 text-lg"
+          />
         </div>
+
+        <button 
+          type="submit" 
+          class="btn w-full bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg h-12 text-lg"
+        >
+          Sign In
+        </button>
       </form>
     </div>
   </div>
 </template>
-<!-- test repo -->
-<script>
-export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
-  },
-  methods: {
-    login() {
-      // Always successful login
-      localStorage.setItem("isAuthenticated", "true");
-      this.$router.push("/dashboard");
-    },
-  },
+
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const username = ref("");
+const password = ref("");
+const error = ref("");
+
+const login = () => {
+  localStorage.setItem("isAuthenticated", "true");
+  router.push("/dashboard");
 };
 </script>

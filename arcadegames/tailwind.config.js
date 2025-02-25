@@ -3,5 +3,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require('daisyui')], // If you're using DaisyUI
+  plugins: [require('daisyui')],
 }
