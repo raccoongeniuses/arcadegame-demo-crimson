@@ -15,7 +15,7 @@
           </label>
           <input 
             v-model="username" 
-            type="username"
+            type="text"
             required 
             class="input input-bordered w-full bg-gray-700 text-gray-900 rounded-lg h-10 text-lg"
           />
