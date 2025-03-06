@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: arcadegames-container
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_BASE_URL_V1=https://sf-api.arcadegame-stream.com/api
+    restart: always

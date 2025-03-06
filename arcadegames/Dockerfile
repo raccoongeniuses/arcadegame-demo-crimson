@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Set environment variable before building
+ENV VITE_BASE_URL_V1="https://sf-api.arcadegame-stream.com/api"
+
 # Copy the rest of the application files
 COPY . .
 

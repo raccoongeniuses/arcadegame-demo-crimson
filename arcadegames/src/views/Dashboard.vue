@@ -32,18 +32,18 @@
                 </span>
               </td>
               <td class="p-3 text-center">
-                <a 
+                <button 
                   v-if="game.status === 'Online'"
-                  :href="generateGameLink(game.link)"
-                  target="_blank"
+                  @click="launchGame"
                   class="inline-block cursor-pointer"
                 >
                   <img :src="game.image" :alt="game.name" class="w-24 h-auto rounded-lg border-0">
-                </a>
+                </button>
                 <button v-else @click="showComingSoon" class="inline-block cursor-pointer">
                   <img :src="game.image" :alt="game.name" class="w-24 h-auto rounded-lg border-0 opacity-50">
                 </button>
               </td>
+
             </tr>
           </tbody>
         </table>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Swal from "sweetalert2";
 
 export default {
@@ -63,13 +64,13 @@ export default {
           name: "Street Fighter", 
           status: "Online", 
           image: "/sf6.png", 
-          link: "http://sf.arcadegame-stream.com/?currency=THB&lang=en"
+          id: "sf6"
         },
         { 
           name: "Tekken 8", 
           status: "Offline", 
           image: "/tekken8.png", 
-          link: "#" 
+          id: "tekken8" 
         },
       ],
     };
@@ -96,20 +97,38 @@ export default {
       });
     },
 
-    generateGameLink(baseURL) {
-      const token = this.generateToken(); // generate token
-      const returnURL = encodeURIComponent("https://m13.ns86.kingdomhall729.com/portal");
-      
-      // append token and returnURL to the game link
-      return `${baseURL}&params=${token}&returnURL=${returnURL}&test=0`;
-    },
-
-    generateToken() {
-      // generate a random Base64 token
-      const randomBytes = new Uint8Array(32);
-      crypto.getRandomValues(randomBytes);
-      return btoa(String.fromCharCode.apply(null, randomBytes));
+  async launchGame() {
+    const url = await this.generateGameLink();
+    if (url !== "#") {
+      window.open(url, "_blank");
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Failed to fetch game URL. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#facc15",
+        width: "400px",
+        customClass: {
+          title: "text-lg",
+          content: "text-sm",
+          popup: "p-4",
+        },
+      });
     }
+  },
+
+  async generateGameLink() {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL_V1}/game/v1/user/launcher`
+      );
+      return response.data?.responseData?.data?.attributes?.url || "#";
+    } catch (error) {
+      console.error("Error fetching game URL:", error);
+      return "#";
+    }
+  }
   },
 };
 </script>
