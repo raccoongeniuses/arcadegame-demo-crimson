@@ -53,8 +53,28 @@ const username = ref("");
 const password = ref("");
 const error = ref("");
 
-const login = () => {
-  localStorage.setItem("isAuthenticated", "true");
-  router.push("/dashboard");
+const login = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem("isAuthenticated", "true");
+      router.push("/dashboard");
+    } else {
+      error.value = data.error;
+    }
+  } catch (err) {
+    error.value = "Failed to connect to the server.";
+  }
 };
 </script>

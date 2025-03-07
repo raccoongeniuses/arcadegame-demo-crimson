@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 // Create MySQL connection
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root", // Change to your MySQL username
-  password: "", // Change to your MySQL password
+  user: "arcadeuser",
+  password: "arcadepass",
   database: "arcadegames",
 });
 
@@ -44,7 +44,9 @@ app.post("/login", (req, res) => {
     if (results.length > 0) {
       return res.json({ success: true, message: "Login successful" });
     } else {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ error: "Invalid username or password, please check again." });
     }
   });
 });
