@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = 3001;
@@ -21,12 +22,12 @@ db.connect((err) => {
   if (err) {
     console.error("Database connection failed:", err);
   } else {
-    console.log("Connected to MySQL database");
+    console.log("✅ Connected to MySQL database");
   }
 });
 
 // Login route
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -35,22 +36,29 @@ app.post("/login", (req, res) => {
       .json({ error: "Username and password are required" });
   }
 
-  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.query(query, [username, password], (err, results) => {
+  const query = "SELECT * FROM users WHERE username = ?";
+  db.query(query, [username], async (err, results) => {
     if (err) {
       return res.status(500).json({ error: "Database error" });
     }
 
     if (results.length > 0) {
-      return res.json({ success: true, message: "Login successful" });
-    } else {
-      return res
-        .status(401)
-        .json({ error: "Invalid username or password, please check again." });
+      const storedHashedPassword = results[0].password;
+
+      // Compare entered password with stored hashed password
+      const isMatch = await bcrypt.compare(password, storedHashedPassword);
+
+      if (isMatch) {
+        return res.json({ success: true, message: "Login successful" });
+      }
     }
+
+    return res
+      .status(401)
+      .json({ error: "Invalid username or password, please check again." });
   });
 });
 
 app.listen(PORT, () => {
-  console.log(`Auth server running on http://localhost:${PORT}`);
+  console.log(`🚀 Auth server running on http://localhost:${PORT}`);
 });
