@@ -1,0 +1,51 @@
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0.22
+    container_name: arcadegames-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Backend (Express + Sequelize)
+  backend:
+    build: ./arcadegames-backend
+    container_name: arcadegames-backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_PORT: 3306
+    ports:
+      - "2006:2006"
+
+  # Frontend
+  frontend:
+    build: 
+      context: arcadegames
+      args:
+        VITE_BASE_URL_V1: ${LOCAL_VITE_URL}
+        VITE_AUTH_API_BASE_URL: ${LOCAL_BACKEND_URL}
+    container_name: arcadegames-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - 4173:4173
+    environment:
+      - VITE_BASE_URL_V1=${LOCAL_VITE_URL}
+      - VITE_AUTH_API_BASE_URL=${LOCAL_BACKEND_URL}
+
+volumes:
+  mysql_data:

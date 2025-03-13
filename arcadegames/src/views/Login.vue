@@ -55,7 +55,7 @@ const error = ref("");
 
 const login = async () => {
   try {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch(`${import.meta.env.VITE_AUTH_API_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

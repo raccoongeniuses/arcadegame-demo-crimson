@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the backend application files
 COPY . .
 
-# Expose port 3002
-EXPOSE 3002
+# Expose port 2006
+EXPOSE 2006
 
 # Start the backend server
 CMD ["node", "auth.js"]

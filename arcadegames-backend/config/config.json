@@ -3,7 +3,7 @@
     "username": "arcadeuser",
     "password": "arcadepass",
     "database": "arcadegames",
-    "host": "arcadegames-mysql",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {

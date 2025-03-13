@@ -4,6 +4,9 @@ FROM node:20
 # Set working directory inside the container
 WORKDIR /app
 
+# Install `serve` to serve the built app
+RUN npm install -g serve
+
 # Copy package.json and package-lock.json first
 COPY package*.json ./
 
@@ -12,7 +15,7 @@ RUN npm install
 
 # Set environment variable before building
 ARG VITE_BASE_URL_V1
-ENV VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
+ARG VITE_AUTH_API_BASE_URL
 
 # Copy the rest of the application files
 COPY . .
@@ -20,8 +23,6 @@ COPY . .
 # Build the Vite project
 RUN npm run build
 
-# Install `serve` to serve the built app
-RUN npm install -g serve
 
 # Expose port 4173 (or the port your app runs on)
 EXPOSE 4173
