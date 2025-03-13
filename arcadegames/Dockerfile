@@ -1,4 +1,4 @@
-# Use Node.js 20 instead of 16
+# Use Node.js 20
 FROM node:20
 
 # Set working directory inside the container
@@ -11,7 +11,8 @@ COPY package*.json ./
 RUN npm install
 
 # Set environment variable before building
-ENV VITE_BASE_URL_V1="https://sf-api.arcadegame-stream.com/api"
+ARG VITE_BASE_URL_V1
+ENV VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
 
 # Copy the rest of the application files
 COPY . .
