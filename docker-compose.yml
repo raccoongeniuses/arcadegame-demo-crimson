@@ -1,22 +1,19 @@
 services:
   # Frontend
-  frontend:
-    build:
+   frontend:
+    build: 
       context: arcadegames
       args:
-        VITE_BASE_URL_V1: ${PROD_VITE_URL}
-        VITE_AUTH_API_BASE_URL: ${PROD_BACKEND_URL}
+        VITE_BASE_URL_V1: ${VITE_BASE_URL_V1}
+        VITE_AUTH_API_BASE_URL: ${LOCAL_BACKEND_URL}
     container_name: arcadegames-frontend
     restart: always
-    depends_on:
-      - backend
+    ports:
+      - 4173:4173
     environment:
-      - VITE_BASE_URL_V1=${PROD_VITE_URL}
-      - VITE_AUTH_API_BASE_URL=${PROD_BACKEND_URL}
-    networks:
-      mynetwork: {}
+      - VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
+      - VITE_AUTH_API_BASE_URL=${LOCAL_BACKEND_URL}
 
-networks:
-  mynetwork:
-    external: true
-    name: host
+volumes:
+  mysql_data:
+

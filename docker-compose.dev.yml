@@ -35,7 +35,7 @@ services:
     build: 
       context: arcadegames
       args:
-        VITE_BASE_URL_V1: ${LOCAL_VITE_URL}
+        VITE_BASE_URL_V1: ${VITE_BASE_URL_V1}
         VITE_AUTH_API_BASE_URL: ${LOCAL_BACKEND_URL}
     container_name: arcadegames-frontend
     restart: always
@@ -44,7 +44,7 @@ services:
     ports:
       - 4173:4173
     environment:
-      - VITE_BASE_URL_V1=${LOCAL_VITE_URL}
+      - VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
       - VITE_AUTH_API_BASE_URL=${LOCAL_BACKEND_URL}
 
 volumes:
