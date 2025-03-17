@@ -21,7 +21,9 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     if (!User) {
-      return res.status(500).json({ error: "User model not found" });
+      return res
+        .status(500)
+        .json({ error: "Something went wrong on the server" });
     }
 
     const user = await User.findOne({ where: { username } });
@@ -32,10 +34,11 @@ app.post("/login", async (req, res) => {
 
     return res.status(401).json({ error: "❌ Invalid username or password" });
   } catch (error) {
-    console.error("🔥 Database error:", error);
-    return res
-      .status(500)
-      .json({ error: "Database error", details: error.message });
+    console.error("🔥 Server error:", error);
+    return res.status(500).json({
+      error: "Something went wrong. Please try again later.",
+      details: error.message,
+    });
   }
 });
 
