@@ -27,6 +27,7 @@ services:
       DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
       DB_PORT: 3306
+      PORT: ${PORT}
     ports:
       - "2006:2006"
 
