@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 2006
 
 # Start the backend server
-CMD ["node", "auth.js"]
+CMD ["node", "index.js"]
