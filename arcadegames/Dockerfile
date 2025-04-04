@@ -13,10 +13,6 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Set environment variable before building
-ARG VITE_BASE_URL_V1
-ARG VITE_AUTH_API_BASE_URL
-
 # Copy the rest of the application files
 COPY . .
 

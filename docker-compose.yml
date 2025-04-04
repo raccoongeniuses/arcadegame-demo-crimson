@@ -3,9 +3,6 @@ services:
    frontend:
     build: 
       context: arcadegames
-      args:
-        VITE_BASE_URL_V1: ${VITE_BASE_URL_V1}
-        VITE_AUTH_API_BASE_URL: ${VITE_AUTH_API_BASE_URL}
     container_name: arcadegames-frontend
     restart: always
     ports:
