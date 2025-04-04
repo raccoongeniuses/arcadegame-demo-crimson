@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the backend application files
 COPY . .
 
-# Expose port 2006
-EXPOSE 2006
+# Expose port 3003
+EXPOSE 3003
 
 # Start the backend server
 CMD ["node", "index.js"]

@@ -29,7 +29,7 @@ services:
       DB_PORT: 3306
       PORT: ${PORT}
     ports:
-      - "2006:2006"
+      - "3003:3003"
 
   # Frontend
   frontend:
