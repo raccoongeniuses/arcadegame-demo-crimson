@@ -10,7 +10,4 @@ services:
     restart: always
     ports:
       - 4173:4173
-    environment:
-      - VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
-      - VITE_AUTH_API_BASE_URL=${LOCAL_BACKEND_URL}
-
+    env_file: ".env"
