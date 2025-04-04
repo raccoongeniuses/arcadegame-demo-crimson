@@ -12,7 +12,7 @@ if (!User) {
 }
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT_AUTH = process.env.PORT_AUTH;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -43,6 +43,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Auth server running on http://localhost:${PORT}`);
+app.listen(PORT_AUTH, () => {
+  console.log(`🚀 Auth server running on http://localhost:${PORT_AUTH}`);
 });
