@@ -13,12 +13,19 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Set environment variable before building
+ARG VITE_BASE_URL_V1
+ARG VITE_AUTH_API_BASE_URL
+
+# Persist environment variables
+ENV VITE_BASE_URL_V1=${VITE_BASE_URL_V1}
+ENV VITE_AUTH_API_BASE_URL=${VITE_AUTH_API_BASE_URL}
+
 # Copy the rest of the application files
 COPY . .
 
 # Build the Vite project
 RUN npm run build
-
 
 # Expose port 4173 (or the port your app runs on)
 EXPOSE 4173
